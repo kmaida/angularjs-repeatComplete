@@ -1,0 +1,108 @@
+<!Doctype HTML>
+<html ng-app="sampleApp">
+<head>
+	<title>repeatComplete</title>
+	<style>
+		<!--
+		body {
+			font: normal 16px/1.2 'Helvetica Neue', Helvetica, Arial, sans-serif;
+		}
+		article {
+			margin: 20px auto;
+			max-width: 800px;
+		}
+		h1 {
+			font-size: 48px;
+			text-align: center;
+		}
+		pre {
+			background: #eee;
+			border: 1px solid #999;
+			border-radius: 3px;
+			color: #444;
+			font: normal 14px/1.2 Menlo, Consolas, 'Courier New', courier, monospace;
+			margin: 0 0 15px 0;
+			overflow-x: auto;
+			padding: 6px;
+			white-space: pre-wrap;
+		}
+		-->
+	</style>
+</head>
+
+<body>
+<div ng-view>
+	<article ng-controller="MainCtrl">
+		<h1>repeatComplete</h1>
+
+		<p><strong>repeatComplete</strong> is an Angular module with a directive to execute code when an <strong>ng-repeat</strong> has finished adding elements to the DOM. The directive can fire a generic or custom-named event upon repeat completion and/or execute a callback function.</p>
+
+		<p>If neither <strong>event</strong> nor <strong>callback</strong> attributes are defined, a <strong>'repeat-complete'</strong> event will be emitted.</p>
+
+		<h2>repeat-complete event</h2>
+
+		<p>Open your browser's developer console and refresh to see event logged.</p>
+		<ul>
+			<li ng-repeat="item in items" repeat-complete event="itemsDone">{{::item}}</li>
+		</ul>
+
+		<strong>View:</strong>
+<pre>
+&lt;ul&gt;
+    &lt;li ng-repeat="item in items" repeat-complete event="itemsDone"&gt;{{::item}}&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+
+		<strong>Controller:</strong>
+<pre>
+$scope.items = ['Item #1', 'Item #2', 'Item #3'];
+
+$scope.$on('itemsDone', function($event, args) {
+    console.log('"items" repeat complete - event fired!', args);
+});
+</pre>
+
+		<h2>repeat-complete callback</h2>
+		<p>Open your browser's developer console and refresh to see event logged.</p>
+		<ul>
+			<li ng-repeat="thing in things" repeat-complete callback="thingsDone()">{{::thing}}</li>
+		</ul>
+
+<pre>
+&lt;ul&gt;
+    &lt;li ng-repeat="thing in things" repeat-complete callback="thingsDone()"&gt;{{::thing}}&lt;/li&gt;
+&lt;/ul&gt;
+</pre>
+
+		<strong>Controller:</strong>
+<pre>
+$scope.things = ['Thing #1', 'Thing #2', 'Thing #3'];
+
+$scope.thingsDone = function() {
+    console.log('"things" repeat complete - callback ran!');
+};
+</pre>
+	</article>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="repeatComplete.js"></script>
+<script>
+	angular.module('sampleApp', ['repeatComplete']);
+	angular.module('sampleApp').controller('MainCtrl', MainCtrl);
+
+	function MainCtrl($scope) {
+		$scope.items = ['Item #1', 'Item #2', 'Item #3'];
+		$scope.things = ['Thing #1', 'Thing #2', 'Thing #3'];
+
+		$scope.$on('itemsDone', function($event, args) {
+			console.log('"items" repeat complete - event fired!', args);
+		});
+
+		$scope.thingsDone = function() {
+			console.log('"things" repeat complete - callback ran!');
+		};
+	}
+</script>
+</body>
+</html>
