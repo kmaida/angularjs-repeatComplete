@@ -1,17 +1,20 @@
 #repeatComplete
----
 
 `repeatComplete` is an Angular module with a directive to execute code when an `ng-repeat` has finished adding elements to the DOM. The directive can fire a generic or custom-named event upon repeat completion and/or execute a callback function.
 
 If neither event nor callback attributes are defined, a `repeat-complete` event will be emitted.
 
-Include the `repeatComplete.js` file and inject the `repeatComplete` module in your app module to use:
+##Quick Start
+
+Include the `repeatComplete.js` file and inject the `repeatComplete` dependency in your app module to use:
+
+**Module:**
 
 ```
 angular.module('myApp', ['repeatComplete']);
 ```
 
-Sample usage:
+**View:**
 
 ```
 <ul>
@@ -19,6 +22,17 @@ Sample usage:
 		{{item}}
 	</li>
 </ul>
+```
+
+**Controller:**
+
+```
+$scope.items = ['Item #1', 'Item #2', 'Item #3'];
+
+$scope.$on('repeat-complete', function($event, args) {
+	// items ng-repeat is done rendering
+	// execute code
+});
 ```
 
 ##Attributes
