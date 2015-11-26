@@ -11,8 +11,11 @@
 	/**
 	 * USAGE:
 	 *
-	 * VIEW: <li ng-repeat="item in items" repeat-complete event="items-done">
-	 * JS: $scope.$on('items-done', function($event, args) {});
+	 * VIEW: <li ng-repeat="item in items" repeat-complete>
+	 * JS: $scope.$on('repeat-complete', function($event, args) {});
+	 *
+	 * VIEW: <li ng-repeat="item in items" repeat-complete event="itemsDone">
+	 * JS: $scope.$on('itemsDone', function($event, args) {});
 	 *
 	 * VIEW: <li ng-repeat="thing in things" repeat-complete callback="thingsDone()">
 	 * JS: $scope.thingsDone = function() { ... }
@@ -65,7 +68,7 @@
 				}
 			}
 
-			if ($scope.$last) {
+			if ($scope.$last === true) {
 				$timeout(_repeatCompleted);
 			}
 		}
